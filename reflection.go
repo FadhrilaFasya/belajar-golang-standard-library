@@ -13,12 +13,13 @@ type Person struct {
 	Name, Address, Email string
 }
 
-func readField(value any) {
-	valueType := reflect.TypeOf(value)
+// readField function to read struct fields using reflection
+func readField(value any) { 
+	valueType := reflect.TypeOf(value) // get the type of the value
 
 	fmt.Println("Type Name", valueType.Name())
-	for i := 0; i < valueType.NumField(); i++ {
-		valueField := valueType.Field(i)
+	for i := 0; i < valueType.NumField(); i++ { // iterate over the fields
+		valueField := valueType.Field(i) // get the field at index i
 		fmt.Println(valueField, "with type", valueField.Type)
 	}
 }
