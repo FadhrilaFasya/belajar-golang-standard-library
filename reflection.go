@@ -6,21 +6,24 @@ import (
 )
 
 type Sample struct {
-	Name string
+	Name string `required: true max: "10"`
 }
 
 type Person struct {
-	Name, Address, Email string
+	Name     string `required: true max: "10"`
+	Address  string `required: true max: "100"`
+	Email    string `required: true max: "100"`
 }
 
 // readField function to read struct fields using reflection
 func readField(value any) { 
 	valueType := reflect.TypeOf(value) // get the type of the value
-
 	fmt.Println("Type Name", valueType.Name())
 	for i := 0; i < valueType.NumField(); i++ { // iterate over the fields
-		valueField := valueType.Field(i) // get the field at index i
-		fmt.Println(valueField, "with type", valueField.Type)
+		structField := valueType.Field(i) // get the field at index i
+		fmt.Println(structField, "with type", structField.Type)
+		fmt.Println(structField.Tag.Get("required"))
+		fmt.Println(structField.Tag.Get("max"))
 	}
 }
 func main() {
